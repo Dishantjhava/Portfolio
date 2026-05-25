@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transmission Successful — Dishant Jhava</title>
+  <meta name="description" content="Dishant Jhava — Full Stack Developer & Data Engineer. B.Tech CSE @ LPU.">
+  <meta property="og:title" content="Dishant Jhava — Portfolio">
+  <meta property="og:description" content="Dishant Jhava — Full Stack Developer & Data Engineer. B.Tech CSE @ LPU.">
+  <meta property="og:image" content="profile.png">
+  <meta property="og:type" content="website">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Share+Tech+Mono&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a08;
+      --surface: #111109;
+      --card: #141410;
+      --green: #a8e63d;
+      --green-dim: #6b9e1f;
+      --green-glow: rgba(168, 230, 61, 0.18);
+      --yellow: #f5d000;
+      --white: #e8e4d4;
+      --muted: #6b6a5e;
+      --border: rgba(168, 230, 61, 0.15);
+      --font-head: 'Oswald', sans-serif;
+      --font-mono: 'Share Tech Mono', monospace;
+      --font-body: 'Barlow', sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* FX */
+    .scanlines {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+      background: repeating-linear-gradient(to bottom, transparent 0, transparent 2px, rgba(0, 0, 0, .07) 2px, rgba(0, 0, 0, .07) 4px);
+      opacity: .35;
+    }
+
+    .glow-bg {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+      opacity: 0.8;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* CARD */
+    .thankyou-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 3rem;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      z-index: 20;
+      position: relative;
+      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px var(--green-glow);
+      animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes zoomIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .card-label {
+      font-family: var(--font-mono);
+      font-size: .75rem;
+      color: var(--green);
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: .05em;
+    }
+
+    .card-title span {
+      color: var(--green);
+    }
+
+    .card-text {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: .95rem;
+      margin-bottom: 2rem;
+    }
+
+    .redirect-text {
+      font-family: var(--font-mono);
+      font-size: .8rem;
+      color: var(--yellow);
+      margin-bottom: 2.5rem;
+      letter-spacing: .1em;
+    }
+
+    .btn {
+      font-family: var(--font-head);
+      font-size: .85rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      padding: .9rem 2.2rem;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      transition: all .25s ease;
+      font-weight: 500;
+      background: var(--green);
+      color: #0a0a08;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+      box-shadow: 0 0 20px rgba(168, 230, 61, 0.3);
+    }
+
+    .btn:hover {
+      background: var(--yellow);
+      box-shadow: 0 0 30px rgba(245, 208, 0, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .beaker-container {
+      margin: 0 auto 1.5rem;
+      width: 60px;
+      height: 70px;
+    }
+
+    .liquid-wave {
+      animation: wave 2s infinite ease-in-out;
+    }
+
+    @keyframes wave {
+      0%, 100% { transform: translateY(0) scaleY(1); }
+      50% { transform: translateY(-3px) scaleY(1.05); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="scanlines"></div>
+  <div class="glow-bg"></div>
+
+  <div class="thankyou-card">
+    <div class="beaker-container">
+      <svg width="100%" height="100%" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 20 L15 120 Q14 130 25 130 L95 130 Q106 130 105 120 L90 20 Z" fill="rgba(168,230,61,0.05)"
+          stroke="#a8e63d" stroke-width="2.5" />
+        <rect x="25" y="14" width="70" height="10" rx="3" fill="rgba(168,230,61,0.15)" stroke="#a8e63d"
+          stroke-width="2" />
+        <clipPath id="tClip">
+          <path d="M31 21 L16 119 Q15 128 25 128 L95 128 Q105 128 104 119 L89 21 Z" />
+        </clipPath>
+        <g clip-path="url(#tClip)">
+          <rect class="liquid-wave" x="14" y="65" width="92" height="65" fill="rgba(168,230,61,0.4)" />
+        </g>
+      </svg>
+    </div>
+    
+    <div class="card-label">// Transmission Synthesized</div>
+    <h1 class="card-title">Message <span>Sent</span></h1>
+    <p class="card-text">Your contact transmission has been successfully cooked and pushed into my active backend pipeline. I will analyze the compound and get back to you shortly.</p>
+    
+    <div class="redirect-text" id="countdown-banner">Redirecting back to lab in <span id="countdown">5</span>s...</div>
+    
+    <a href="index.html" class="btn">Return to Lab</a>
+  </div>
+
+  <script>
+    var countdownValue = 5;
+    var countdownEl = document.getElementById('countdown');
+    
+    var interval = setInterval(function() {
+      countdownValue--;
+      if (countdownEl) {
+        countdownEl.innerText = countdownValue;
+      }
+      if (countdownValue <= 0) {
+        clearInterval(interval);
+        window.location.href = 'index.html';
+      }
+    }, 1000);
+  </script>
+</body>
+
+</html>

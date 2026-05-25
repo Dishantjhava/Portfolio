@@ -5,6 +5,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dishant Jhava — Portfolio</title>
+  <meta name="description" content="Dishant Jhava — Full Stack Developer & Data Engineer. B.Tech CSE @ LPU.">
+  <meta property="og:title" content="Dishant Jhava — Portfolio">
+  <meta property="og:description" content="Dishant Jhava — Full Stack Developer & Data Engineer. B.Tech CSE @ LPU.">
+  <meta property="og:image" content="profile.png">
+  <meta property="og:type" content="website">
   <link
     href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Share+Tech+Mono&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&display=swap"
     rel="stylesheet" />
@@ -288,22 +293,24 @@
     .intro-skip {
       position: absolute;
       bottom: 2rem;
-      right: 2rem;
+      right: 1.5rem;
       font-family: var(--font-mono);
-      font-size: .7rem;
+      font-size: .75rem;
       color: var(--muted);
       letter-spacing: .2em;
       text-transform: uppercase;
       cursor: pointer;
-      z-index: 5;
+      z-index: 10005;
       border: 1px solid rgba(168, 230, 61, .2);
-      padding: .5rem 1rem;
+      padding: .75rem 1.4rem;  /* bigger tap target */
+      min-width: 120px;
+      text-align: center;
       transition: all .2s;
       opacity: 0;
       animation: fadeInSkip .5s ease 1s forwards;
+      -webkit-tap-highlight-color: transparent;
     }
-
-    .intro-skip:hover {
+    .intro-skip:hover, .intro-skip:active {
       color: var(--green);
       border-color: var(--green);
     }
@@ -311,6 +318,15 @@
     @keyframes fadeInSkip {
       to {
         opacity: 1;
+      }
+    }
+
+    @keyframes pulseSkip {
+      0%, 100% {
+        box-shadow: 0 0 15px rgba(168, 230, 61, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 30px rgba(168, 230, 61, 0.8);
       }
     }
 
@@ -322,7 +338,7 @@
       background: var(--green);
       box-shadow: 0 0 8px var(--green);
       width: 0;
-      animation: progressFill 14.6s linear .2s forwards;
+      animation: progressFill 5.6s linear .2s forwards;
     }
 
     @keyframes progressFill {
@@ -362,6 +378,11 @@
       transition: width .2s, height .2s;
     }
 
+    @media (hover: none), (pointer: coarse) {
+      body { cursor: auto; }
+      .cursor, .cursor-ring { display: none !important; }
+    }
+
     ::-webkit-scrollbar {
       width: 4px;
     }
@@ -374,6 +395,45 @@
       background: var(--green-dim);
       border-radius: 2px;
     }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--green);
+      transition: all .25s;
+    }
+    .nav-mobile-menu {
+      display: none;
+      position: fixed;
+      top: 56px; left: 0; right: 0;
+      background: rgba(10,10,8,.97);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem;
+      flex-direction: column;
+      gap: 1.2rem;
+      z-index: 199;
+    }
+    .nav-mobile-menu a {
+      font-family: var(--font-mono);
+      font-size: .85rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-mobile-menu.open { display: flex; }
 
     /* NAV */
     nav {
@@ -454,6 +514,34 @@
 
     .nav-resume::after {
       display: none !important;
+    }
+
+    .mode-toggle-btn {
+      background: rgba(168, 230, 61, 0.06) !important;
+      color: var(--green) !important;
+      border: 1px solid var(--green-dim) !important;
+      font-family: var(--font-mono) !important;
+      font-size: .68rem !important;
+      padding: .4rem .8rem !important;
+      text-transform: uppercase !important;
+      letter-spacing: .05em !important;
+      cursor: pointer !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: .4rem !important;
+      clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px)) !important;
+      transition: all .25s ease !important;
+      outline: none !important;
+    }
+
+    .mode-toggle-btn:hover {
+      background: var(--green-glow) !important;
+      box-shadow: 0 0 12px var(--green-glow) !important;
+      border-color: var(--green) !important;
+    }
+
+    .mode-toggle-btn .mode-icon {
+      font-size: 0.8rem;
     }
 
     /* SECTIONS */
@@ -562,6 +650,17 @@
       }
     }
 
+    @keyframes floatDevPanel {
+      0%, 100% {
+        transform: translateY(0);
+        opacity: 0.88;
+      }
+      50% {
+        transform: translateY(-20px);
+        opacity: 1;
+      }
+    }
+
     .hero-content {
       position: relative;
       z-index: 2;
@@ -623,16 +722,23 @@
       width: 100%;
       max-width: 550px;
       z-index: 5;
-      animation: floatMol 8s ease-in-out infinite; 
+      animation: floatDevPanel 8s ease-in-out infinite; 
     }
 
     .dev-window {
       background: #1e1e1e;
       border-radius: 8px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 15px rgba(168, 230, 61, 0.1);
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      border: 1px solid rgba(168, 230, 61, 0.15);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .dev-window:hover {
+      box-shadow: 0 25px 45px rgba(0,0,0,0.65), 0 0 30px rgba(168, 230, 61, 0.25);
+      border-color: rgba(168, 230, 61, 0.35);
     }
 
     .window-header {
@@ -1611,86 +1717,7 @@
       margin-top: .6rem;
     }
 
-    /* OPEN SOURCE */
-    #opensource {
-      background: var(--surface);
-    }
 
-    .os-banner {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 3rem;
-      display: flex;
-      align-items: center;
-      gap: 3rem;
-      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
-      position: relative;
-      overflow: hidden;
-    }
-
-    .os-banner::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 80% 50%, rgba(168, 230, 61, .05), transparent 60%);
-      pointer-events: none;
-    }
-
-    .os-icon {
-      font-size: 4rem;
-      line-height: 1;
-      flex-shrink: 0;
-    }
-
-    .os-content h3 {
-      font-family: var(--font-head);
-      font-size: 1.4rem;
-      text-transform: uppercase;
-      color: var(--white);
-      margin-bottom: .6rem;
-      letter-spacing: .05em;
-    }
-
-    .os-content p {
-      color: var(--muted);
-      font-size: .9rem;
-      line-height: 1.8;
-      max-width: 600px;
-    }
-
-    .os-status {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      font-family: var(--font-mono);
-      font-size: .68rem;
-      color: var(--green);
-      margin-top: 1rem;
-      border: 1px solid var(--border);
-      padding: .35rem .8rem;
-      background: rgba(168, 230, 61, .04);
-    }
-
-    .os-status::before {
-      content: '';
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-      animation: pulse 1.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        box-shadow: 0 0 0 0 rgba(168, 230, 61, .5);
-      }
-
-      50% {
-        box-shadow: 0 0 0 6px rgba(168, 230, 61, 0);
-      }
-    }
 
     /* CONTACT */
     #contact {
@@ -1970,7 +1997,7 @@
     .glitch::before {
       left: 2px;
       text-shadow: -2px 0 var(--green);
-      clip: rect(0, 900px, 0, 0);
+      clip-path: inset(100% 0 100% 0);
       animation: g1 4s infinite linear alternate-reverse;
       color: inherit;
     }
@@ -1978,60 +2005,60 @@
     .glitch::after {
       left: -2px;
       text-shadow: 2px 0 var(--orange);
-      clip: rect(0, 900px, 0, 0);
+      clip-path: inset(100% 0 100% 0);
       animation: g2 4s infinite linear alternate-reverse;
       color: inherit;
     }
 
     @keyframes g1 {
       0% {
-        clip: rect(42px, 9999px, 44px, 0);
+        clip-path: inset(42% 0 56% 0);
       }
 
       20% {
-        clip: rect(12px, 9999px, 14px, 0);
+        clip-path: inset(12% 0 85% 0);
       }
 
       40% {
-        clip: rect(76px, 9999px, 78px, 0);
+        clip-path: inset(76% 0 21% 0);
       }
 
       60% {
-        clip: rect(4px, 9999px, 6px, 0);
+        clip-path: inset(4% 0 93% 0);
       }
 
       80% {
-        clip: rect(88px, 9999px, 90px, 0);
+        clip-path: inset(88% 0 9% 0);
       }
 
       100% {
-        clip: rect(55px, 9999px, 57px, 0);
+        clip-path: inset(55% 0 42% 0);
       }
     }
 
     @keyframes g2 {
       0% {
-        clip: rect(65px, 9999px, 67px, 0);
+        clip-path: inset(65% 0 32% 0);
       }
 
       20% {
-        clip: rect(32px, 9999px, 34px, 0);
+        clip-path: inset(32% 0 65% 0);
       }
 
       40% {
-        clip: rect(18px, 9999px, 20px, 0);
+        clip-path: inset(18% 0 79% 0);
       }
 
       60% {
-        clip: rect(90px, 9999px, 92px, 0);
+        clip-path: inset(90% 0 7% 0);
       }
 
       80% {
-        clip: rect(7px, 9999px, 9px, 0);
+        clip-path: inset(7% 0 90% 0);
       }
 
       100% {
-        clip: rect(44px, 9999px, 46px, 0);
+        clip-path: inset(44% 0 53% 0);
       }
     }
 
@@ -2080,6 +2107,10 @@
         padding: 1rem 1.5rem;
       }
 
+      .nav-hamburger {
+        display: flex !important;
+      }
+
       .nav-links li {
         display: none;
       }
@@ -2096,8 +2127,45 @@
         padding: 7rem 1.5rem 4rem;
         flex-direction: column;
       }
+      .hero-eyebrow {
+        font-size: .7rem;
+        letter-spacing: .15em;
+      }
+      .hero-tagline {
+        font-size: .9rem;
+        max-width: 100%;
+      }
+      .hero-cta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .hero-cta .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      .chemical-formula {
+        font-size: .82rem;
+        word-break: break-word;
+      }
       .dev-panel {
         display: none;
+      }
+      .skill-element {
+        width: 76px;
+        height: 76px;
+      }
+      .skill-element .e-sym {
+        font-size: 1.3rem;
+      }
+      .skills-grid {
+        gap: .5rem;
+      }
+      .tools-list, .soft-skills-row {
+        gap: .5rem;
+      }
+      .tool-tag, .soft-tag {
+        font-size: .7rem;
+        padding: .35rem .7rem;
       }
 
       .about-grid {
@@ -2120,6 +2188,17 @@
       
       .contact-form {
         grid-template-columns: 1fr;
+        gap: .9rem;
+      }
+      .contact-form input,
+      .contact-form textarea {
+        padding: 1.1rem 1rem;
+        font-size: 1rem;  /* prevents iOS auto-zoom on focus */
+      }
+      .contact-form .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 1rem;
       }
 
       .element-badge {
@@ -2136,11 +2215,7 @@
         font-size: clamp(3rem, 13vw, 5rem);
       }
 
-      .os-banner {
-        flex-direction: column;
-        gap: 1.5rem;
-        padding: 2rem;
-      }
+
 
       #resume-dl {
         padding: 4rem 1.5rem;
@@ -2244,8 +2319,32 @@
         <li><a href="#experience">Training</a></li>
         <li><a href="#competitive">CP</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="Resumefinal.pdf" download class="nav-resume">↓ Resume</a></li>
+        <li class="toggle-item">
+          <button id="theme-mode-toggle" class="mode-toggle-btn" title="Toggle Professional Safe Mode">
+            <span class="mode-icon">🧪</span>
+            <span class="mode-text">Cook Mode</span>
+          </button>
+        </li>
+        <li><a href="Resume.pdf" download class="nav-resume">↓ Resume</a></li>
       </ul>
+      <button class="nav-hamburger" id="navHam" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-mobile-menu" id="navMobile">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#certs">Certs</a>
+        <a href="#experience">Training</a>
+        <a href="#competitive">CP</a>
+        <a href="#contact">Contact</a>
+        <div style="padding: 0.5rem 0; border-top: 1px solid var(--border); margin-top: 0.5rem; display: flex; justify-content: center;">
+          <button class="mode-toggle-btn mobile-mode-toggle" title="Toggle Professional Safe Mode" style="width: 100%; justify-content: center; padding: 0.6rem !important;">
+            <span class="mode-icon">🧪</span>
+            <span class="mode-text">Cook Mode</span>
+          </button>
+        </div>
+      </div>
     </nav>
 
     <section id="hero">
@@ -2253,21 +2352,22 @@
       <canvas id="hero-canvas"></canvas>
       <div class="desert-horizon"></div>
       <div class="hero-content">
-        <div class="hero-eyebrow">Say my name — Full Stack Developer</div>
+        <div class="hero-eyebrow" data-text-toggle data-standard="Say my name — Full Stack Developer" data-safe="Dishant Jhava — Full Stack Developer">Say my name — Full Stack Developer</div>
         <h1 class="hero-name">
           <span class="dim-part">Dis</span><span class="highlight glitch" data-text="HANT">HANT</span><br>
           <span class="dim-part">JH</span><span class="highlight">AVA</span>
         </h1>
         <p class="chemical-formula" id="chemFormula"></p>
-        <p class="hero-tagline">
-          B.Tech CSE student at LPU building full-stack platforms, data pipelines, and analytics dashboards. Clean code.
-          Pure results. No filler.
+        <p class="hero-tagline" data-text-toggle 
+           data-standard="B.Tech CSE student at LPU building full-stack platforms, data pipelines, and analytics dashboards. Clean code. Pure results. No filler."
+           data-safe="B.Tech CSE student at LPU building full-stack platforms, data pipelines, and analytics dashboards. Clean code. High-quality results. Optimized performance.">
+          B.Tech CSE student at LPU building full-stack platforms, data pipelines, and analytics dashboards. Clean code. Pure results. No filler.
         </p>
         <div class="hero-cta">
           <button class="btn btn-ghost" onclick="window.scrollTo(0,0); location.reload();">PORTFOLIO</button>
           <a class="btn btn-primary" href="#projects">View Lab Work</a>
-          <a class="btn btn-ghost" href="#contact">Let's Cook</a>
-          <a class="btn btn-dl" href="Resumefinal.pdf" download>↓ Resume</a>
+          <a class="btn btn-ghost" href="#contact" data-text-toggle data-standard="Let's Cook" data-safe="Let's Connect">Let's Cook</a>
+          <a class="btn btn-dl" href="Resume.pdf" download>↓ Resume</a>
         </div>
       </div>
       
@@ -2312,18 +2412,27 @@
       <h2 class="section-title">About <span class="accent">Me</span></h2>
       <div class="about-grid">
         <div>
-          <div class="about-quote">"The chemistry must be <em>pure</em>."<br>— and so must the code.</div>
+          <div class="about-quote" data-text-toggle 
+               data-standard='"The chemistry must be <em>pure</em>."<br>— and so must the code.'
+               data-safe='"The architecture must be <em>clean</em>."<br>— and so must the code.'>
+            "The chemistry must be <em>pure</em>."<br>— and so must the code.
+          </div>
           <p class="about-text">I'm Dishant Jhava, a Computer Science & Engineering student at Lovely Professional
             University, Phagwara. I specialize in building full-stack web applications, data analysis pipelines, and
             interactive dashboards — with the precision of a chemist and the instinct of a problem-solver.</p>
-          <p class="about-text">Like Walter White pivoting from teacher to mastermind, I'm transforming from student to
-            developer — shipping production-grade systems, solving 150+ DSA problems, and finishing in the top 5 of
-            competitive hackathons. I don't settle for 96%. I cook clean.</p>
-          <p class="about-text">Currently available for internships and collaborations. If you
-            need someone who treats code like a chemical formula — precise, tested, and pure — I'm your guy.</p>
+          <p class="about-text" data-text-toggle
+             data-standard="Like Walter White pivoting from teacher to mastermind, I'm transforming from student to developer — shipping production-grade systems, solving 150+ DSA problems, and finishing in the top 5 of competitive hackathons. I don't settle for 96%. I cook clean."
+             data-safe="Pivoting from a high-achieving student to a dedicated software professional, I specialize in engineering robust production-grade systems, solving 150+ DSA problems, and finishing in the top 5 of competitive hackathons. I settle only for excellence. I write clean, maintainable code.">
+            Like Walter White pivoting from teacher to mastermind, I'm transforming from student to developer — shipping production-grade systems, solving 150+ DSA problems, and finishing in the top 5 of competitive hackathons. I don't settle for 96%. I cook clean.
+          </p>
+          <p class="about-text" data-text-toggle
+             data-standard="Currently available for internships and collaborations. If you need someone who treats code like a chemical formula — precise, tested, and pure — I'm your guy."
+             data-safe="Currently available for internships and collaborations. If you need someone who treats software engineering with high precision — detailed, thoroughly tested, and optimized — let's connect.">
+            Currently available for internships and collaborations. If you need someone who treats code like a chemical formula — precise, tested, and pure — I'm your guy.
+          </p>
           <div class="stats-row">
             <div class="stat">
-              <div class="stat-num" data-val="4" data-suffix="+">0</div>
+              <div class="stat-num" data-val="3" data-suffix="+">0</div>
               <div class="stat-label">Projects</div>
             </div>
             <div class="stat">
@@ -2331,7 +2440,7 @@
               <div class="stat-label">DSA Solved</div>
             </div>
             <div class="stat">
-              <div class="stat-num" data-val="7.4">0.0</div>
+              <div class="stat-num" data-val="7.6">0.0</div>
               <div class="stat-label">CGPA</div>
             </div>
             <div class="stat">
@@ -2345,9 +2454,9 @@
           </div>
           
           <div class="summary-card" style="margin-top: 3rem;">
-            <h3>// Quick Compound Analysis</h3>
+            <h3 data-text-toggle data-standard="// Quick Compound Analysis" data-safe="// Technical Profile Summary">// Quick Compound Analysis</h3>
             <ul class="summary-list">
-              <li>B.Tech CSE @ LPU Phagwara — 2023–Present (CGPA 7.4)</li>
+              <li>B.Tech CSE @ LPU Phagwara — 2023–Present (CGPA 7.6)</li>
               <li>MERN Stack — React, Node, Express, MongoDB, JWT</li>
               <li>Data Science — Python, Pandas, Matplotlib, Seaborn, Sklearn</li>
               <li>Visualization — Power BI, Jupyter Notebook, Figma</li>
@@ -2361,7 +2470,7 @@
         </div>
         <div>
           <div class="profile-img-wrap reveal">
-            <img src="profile.png" alt="Dishant Jhava" class="profile-img">
+            <img src="profile.png" alt="Dishant Jhava" class="profile-img" loading="lazy">
             <div class="profile-label">// SUSPECT_ID: DJ-01</div>
           </div>
         </div>
@@ -2369,7 +2478,7 @@
     </section>
 
     <section id="skills">
-      <div class="section-label">// Compound Inventory</div>
+      <div class="section-label" data-text-toggle data-standard="// Compound Inventory" data-safe="// Technical Skills Inventory">// Compound Inventory</div>
       <h2 class="section-title">Skills & <span class="accent">Technologies</span></h2>
       <div class="skills-outer">
         <div>
@@ -2395,29 +2504,33 @@
             <div class="skill-element reveal"><span class="e-num">08</span><span class="e-sym">Nd</span><span
                 class="e-name">Node.js</span></div>
             <div class="skill-element reveal"><span class="e-num">09</span><span class="e-sym">Ex</span><span
-                class="e-name">Express</span></div>
+                class="e-name">Express.js</span></div>
             <div class="skill-element reveal"><span class="e-num">10</span><span class="e-sym">Ht</span><span
-                class="e-name">HTML/CSS</span></div>
-            <div class="skill-element reveal"><span class="e-num">11</span><span class="e-sym">Jt</span><span
+                class="e-name">HTML</span></div>
+            <div class="skill-element reveal"><span class="e-num">11</span><span class="e-sym">Cs</span><span
+                class="e-name">CSS</span></div>
+            <div class="skill-element reveal"><span class="e-num">12</span><span class="e-sym">Rt</span><span
+                class="e-name">REST APIs</span></div>
+            <div class="skill-element reveal"><span class="e-num">13</span><span class="e-sym">Jt</span><span
                 class="e-name">JWT</span></div>
-            <div class="skill-element reveal"><span class="e-num">12</span><span class="e-sym">Mg</span><span
+            <div class="skill-element reveal"><span class="e-num">14</span><span class="e-sym">Mg</span><span
                 class="e-name">Mongoose</span></div>
-            <div class="skill-element reveal"><span class="e-num">13</span><span class="e-sym">Vt</span><span
+            <div class="skill-element reveal"><span class="e-num">15</span><span class="e-sym">Vt</span><span
                 class="e-name">Vite</span></div>
           </div>
         </div>
         <div>
           <div class="skill-cat-title">// ML & Data Libraries</div>
           <div class="skills-grid">
-            <div class="skill-element reveal"><span class="e-num">14</span><span class="e-sym">Sk</span><span
-                class="e-name">Sklearn</span></div>
-            <div class="skill-element reveal"><span class="e-num">15</span><span class="e-sym">Pd</span><span
+            <div class="skill-element reveal"><span class="e-num">16</span><span class="e-sym">Sk</span><span
+                class="e-name">Scikit-learn</span></div>
+            <div class="skill-element reveal"><span class="e-num">17</span><span class="e-sym">Pd</span><span
                 class="e-name">Pandas</span></div>
-            <div class="skill-element reveal"><span class="e-num">16</span><span class="e-sym">Np</span><span
+            <div class="skill-element reveal"><span class="e-num">18</span><span class="e-sym">Np</span><span
                 class="e-name">NumPy</span></div>
-            <div class="skill-element reveal"><span class="e-num">17</span><span class="e-sym">Mp</span><span
-                class="e-name">Matplot</span></div>
-            <div class="skill-element reveal"><span class="e-num">18</span><span class="e-sym">Sb</span><span
+            <div class="skill-element reveal"><span class="e-num">19</span><span class="e-sym">Mp</span><span
+                class="e-name">Matplotlib</span></div>
+            <div class="skill-element reveal"><span class="e-num">20</span><span class="e-sym">Sb</span><span
                 class="e-name">Seaborn</span></div>
           </div>
           <div class="skill-cat-title">// Tools & Platforms</div>
@@ -2425,7 +2538,7 @@
             <span class="tool-tag">VS Code</span><span class="tool-tag">Git / GitHub</span>
             <span class="tool-tag">MongoDB Atlas</span><span class="tool-tag">Postman</span>
             <span class="tool-tag">Power BI</span><span class="tool-tag">Jupyter Notebook</span>
-            <span class="tool-tag">Figma</span><span class="tool-tag">REST APIs</span>
+            <span class="tool-tag">Figma</span><span class="tool-tag">Docker</span>
           </div>
           <div class="skill-cat-title" style="margin-top:1.5rem">// Soft Skills</div>
           <div class="soft-skills-row">
@@ -2441,126 +2554,107 @@
       <h2 class="section-title">The <span class="accent">Lab</span> Work</h2>
       <div class="projects-grid">
         <div class="project-card reveal">
-          <div class="project-number">OPERATION — 01 · JAN–FEB 2026</div>
-          <div class="project-title">Planora</div>
-          <div class="project-codename">// BLUE SKY — MERN Project Management Platform</div>
+          <div class="project-number">OPERATION — 01 · APR–MAY 2026</div>
+          <div class="project-title">BLUEPRINTR</div>
+          <div class="project-codename">// AGENTIC LLM — AI Product Execution Copilot</div>
           <ul class="project-bullets">
-            <li>Full-stack platform with JWT-based authentication and protected routes.</li>
-            <li>RESTful APIs via Node.js + Express — CRUD for Projects, Tasks & Teams.</li>
-            <li>Interactive React.js dashboard for real-time project and task tracking.</li>
-            <li>Input validation, error handling & middleware-based request logging.</li>
+            <li>Engineered a 5-stage agentic LLM pipeline (OpenAI API) that auto-generates features, REST API specs, DB schemas, and starter code from a single user prompt - reducing manual planning effort from hours to under 2 minutes.</li>
+            <li>Architected Node.js/Express backend with TTL-based Redis caching – cutting redundant LLM calls by ~60% and response time to under 800ms.</li>
+            <li>Built a React SPA with 8 pages and 7 dashboard components (API viewer, schema view, task board) using Zustand and custom hooks.</li>
+            <li>Enforced rate limiting, ownership checks, and async error wrapping for production-grade API security.</li>
+          </ul>
+          <div class="project-tech"><span class="tech-tag">React.js</span><span class="tech-tag">Node.js</span><span
+              class="tech-tag">MongoDB</span><span class="tech-tag">Redis</span><span
+              class="tech-tag">OpenAI API</span><span class="tech-tag">Zustand</span><span
+              class="tech-tag">Tailwind CSS</span><span class="tech-tag">Docker</span><span
+              class="tech-tag">REST APIs</span><span class="tech-tag">MVC</span></div>
+          <a class="project-link" href="https://github.com/Dishantjhava/BLUEPRINTR-AI-Product-Execution-Copilot" target="_blank">View on GitHub</a>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-number">OPERATION — 02 · JAN–FEB 2026</div>
+          <div class="project-title">Planora</div>
+          <div class="project-codename" data-text-toggle data-standard="// BLUE SKY — MERN Project Management Platform" data-safe="// ENTERPRISE — MERN Project Management Platform">// BLUE SKY — MERN Project Management Platform</div>
+          <ul class="project-bullets">
+            <li>Developed a full-stack platform with JWT-based authentication and a dedicated authMiddleware, securing protected routes across 4 resource domains – Projects, Tasks, Teams, and Users.</li>
+            <li>Architected RESTful APIs across 4 modular route files with full CRUD for Projects, Tasks, and Teams - backed by Mongoose schema validation on 4 data models.</li>
+            <li>Designed a React.js SPA with 5 views and a unified api.js service layer – keeping UI and data logic cleanly separated.</li>
+            <li>Implemented auth middleware, input validation, and centralized error handling for consistent API responses.</li>
           </ul>
           <div class="project-tech"><span class="tech-tag">React.js</span><span class="tech-tag">Node.js</span><span
               class="tech-tag">Express.js</span><span class="tech-tag">MongoDB Atlas</span><span
-              class="tech-tag">Mongoose</span><span class="tech-tag">JWT</span><span class="tech-tag">Vite</span></div>
-          <a class="project-link" href="https://github.com/Dishantjhava/Planora-project-management" target="_blank">View
-            on GitHub</a>
-        </div>
-        <div class="project-card reveal">
-          <div class="project-number">OPERATION — 02 · 2025</div>
-          <div class="project-title">AI Gardening Chatbot</div>
-          <div class="project-codename">// GRAY MATTER — NLP + API Integration</div>
-          <ul class="project-bullets">
-            <li>Built an AI chatbot integrating NLP models / APIs for intelligent plant care recommendations.</li>
-            <li>Implemented prompt-based response generation and contextual query handling.</li>
-            <li>Enhanced chatbot accuracy using structured datasets and domain-specific tuning.</li>
-            <li>Deployed with a responsive UI for real-world usability.</li>
-          </ul>
-          <div class="project-tech"><span class="tech-tag">NLP</span><span class="tech-tag">API Integration</span><span
-              class="tech-tag">Python</span><span class="tech-tag">Prompt Engineering</span><span
-              class="tech-tag">Responsive UI</span></div>
-          <a class="project-link" href="https://github.com/Dishantjhava/AI-Based-Gardening-Assistant-System"
-            target="_blank">View on GitHub</a>
+              class="tech-tag">Mongoose</span><span class="tech-tag">JWT</span><span class="tech-tag">Vite</span><span
+              class="tech-tag">Git/GitHub</span></div>
+          <a class="project-link" href="https://github.com/Dishantjhava/Planora-project-management" target="_blank">View on GitHub</a>
         </div>
         <div class="project-card reveal">
           <div class="project-number">OPERATION — 03 · MAR–APR 2025</div>
           <div class="project-title">Air Quality EDA</div>
-          <div class="project-codename">// HEISENBERG — Data Cleaning & Insights</div>
+          <div class="project-codename" data-text-toggle data-standard="// HEISENBERG — Data Cleaning & Insights" data-safe="// PIPELINE — Data Cleaning & Insights">// HEISENBERG — Data Cleaning & Insights</div>
           <ul class="project-bullets">
-            <li>Comprehensive data cleaning and preprocessing on real-world air quality datasets.</li>
-            <li>EDA to identify trends, correlations and statistical patterns across key metrics.</li>
-            <li>Visualizations via Matplotlib and Seaborn to support data-driven conclusions.</li>
+            <li>Cleaned and preprocessed a real-world air quality dataset - handled missing values, outliers, and feature inconsistencies to achieve analysis-ready data.</li>
+            <li>Uncovered key correlations between pollutants (PM2.5, NO2, CO) and seasonal trends through EDA using Pandas and NumPy.</li>
+            <li>Visualized 6+ statistical insights via Matplotlib and Seaborn including heatmaps, distribution plots, and time-series trends.</li>
           </ul>
           <div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">Pandas</span><span
-              class="tech-tag">Matplotlib</span><span class="tech-tag">Seaborn</span><span
-              class="tech-tag">EDA</span><span class="tech-tag">Data Cleaning</span></div>
+              class="tech-tag">NumPy</span><span class="tech-tag">Matplotlib</span><span
+              class="tech-tag">Seaborn</span><span class="tech-tag">EDA</span><span
+              class="tech-tag">Data Cleaning</span></div>
           <a class="project-link" href="https://github.com/Dishantjhava/Air_Quality" target="_blank">View on GitHub</a>
-        </div>
-        <div class="project-card reveal">
-          <div class="project-number">OPERATION — 04 · APR–MAY 2025</div>
-          <div class="project-title">Health Dashboard</div>
-          <div class="project-codename">// THE COOK — Power BI Analytics</div>
-          <ul class="project-bullets">
-            <li>Interactive Power BI dashboard visualizing key health indicators and patient trends.</li>
-            <li>Configured KPIs, slicers, and responsive filters for real-time data exploration.</li>
-            <li>Identified patterns and actionable insights to support data-informed decisions.</li>
-          </ul>
-          <div class="project-tech"><span class="tech-tag">Power BI</span><span class="tech-tag">Excel</span><span
-              class="tech-tag">Data Cleaning</span><span class="tech-tag">Visualization</span></div>
-          <a class="project-link" href="https://github.com/Dishantjhava/Health-Analysis-Dashboard" target="_blank">View
-            on GitHub</a>
         </div>
       </div>
     </section>
 
     <section id="certs">
-      <div class="section-label">// Verified Compounds</div>
+      <div class="section-label" data-text-toggle data-standard="// Verified Compounds" data-safe="// Professional Credentials">// Verified Compounds</div>
       <h2 class="section-title">Certifications <span class="accent">& Courses</span></h2>
       <div class="certs-grid">
-        <a href="certificates/NPTEL.jpeg" target="_blank" class="cert-card reveal" style="text-decoration:none; display:block; color:inherit;">
+        <a href="https://drive.google.com/file/d/1-JCyqS7d9iPH-LbsXrOA0bxi-Lr9VF1_/view?usp=sharing" target="_blank" class="cert-card reveal" style="text-decoration:none; display:block; color:inherit;">
           <div class="cert-icon">☁</div>
           <div class="cert-title">Cloud Computing</div>
           <div class="cert-org">NPTEL · IIT Kharagpur</div>
           <div class="cert-date">May 2025 · Online Certification</div>
         </a>
-        <a href="certificates/DSA.pdf" target="_blank" class="cert-card reveal" style="text-decoration:none; display:block; color:inherit;">
+        <a href="https://drive.google.com/file/d/1qr4PMrLCdwT239TGJxMgGl2M8rpNU8mX/view?usp=sharing" target="_blank" class="cert-card reveal" style="text-decoration:none; display:block; color:inherit;">
+          <div class="cert-icon">⬢</div>
+          <div class="cert-title">Dynamic Programming Camp</div>
+          <div class="cert-org">AlgoUniversity</div>
+          <div class="cert-date">Apr 2026 · Intensive Camp</div>
+        </a>
+        <a href="https://drive.google.com/file/d/1YlGM_LZSWFlgrqDAjsVbCRsUO_bubP4D/view?usp=sharing" target="_blank" class="cert-card reveal" style="text-decoration:none; display:block; color:inherit;">
           <div class="cert-icon">⬡</div>
           <div class="cert-title">DSA Certification</div>
           <div class="cert-org">NeoColab · IamNeo</div>
           <div class="cert-date">Dec 2024 · NeoColab Platform</div>
         </a>
-        <a href="certificates/JAVA.pdf" target="_blank" class="cert-card reveal" style="text-decoration:none; display:block; color:inherit;">
-          <div class="cert-icon">⬢</div>
-          <div class="cert-title">Java Certification</div>
-          <div class="cert-org">NeoColab · IamNeo</div>
-          <div class="cert-date">Oct 2023 · NeoColab Platform</div>
-        </a>
-        <a href="certificates/freecodecamp.pdf" target="_blank" class="cert-card reveal" style="text-decoration:none; display:block; color:inherit;">
+        <a href="https://drive.google.com/file/d/1vmE3a20jAd1s2y0zHIV5dHWOZYfek-Ab/view?usp=sharing" target="_blank" class="cert-card reveal" style="text-decoration:none; display:block; color:inherit;">
           <div class="cert-icon">⌘</div>
           <div class="cert-title">Responsive Web Design</div>
           <div class="cert-org">FreeCodeCamp</div>
           <div class="cert-date">May 2025 · freeCodeCamp</div>
         </a>
-        <a href="certificates/OracleAi.pdf" target="_blank" class="cert-card reveal" style="text-decoration:none; display:block; color:inherit;">
-          <div class="cert-icon">☁</div>
-          <div class="cert-title">OCI 2025 AI Foundations Associate</div>
-          <div class="cert-org">Oracle University</div>
-          <div class="cert-date">March 2026 · Oracle Certified</div>
-        </a>
       </div>
     </section>
 
     <section id="experience">
-      <div class="section-label">// Synthesis Log</div>
+      <div class="section-label" data-text-toggle data-standard="// Synthesis Log" data-safe="// Professional Log">// Synthesis Log</div>
       <h2 class="section-title">Training <span class="accent">& Experience</span></h2>
       <div class="timeline">
-        <a href="certificates/summer training.pdf" target="_blank" class="timeline-item reveal" style="text-decoration:none; display:block; color:inherit;">
+        <a href="https://drive.google.com/file/d/1EcjH8SIbOZzE5wM1Qmy7NUFlydvYUVyP/view?usp=sharing" target="_blank" class="timeline-item reveal" style="text-decoration:none; display:block; color:inherit;">
           <div class="timeline-dot"></div>
           <div class="timeline-date">JUN 2025 - JUL 2025</div>
           <div class="timeline-title">From Data to Insights - Intensive Training</div>
           <div class="timeline-org">Center for Professional Enhancement · Certificate Program</div>
           <ul>
-            <li>Intensive training in Data Structures & Algorithms with hands-on implementation.</li>
-            <li>Developed a To-Do List Manager System applying OOP and file handling in C++.</li>
-            <li>Implemented Arrays, Linked Lists, and Stacks to solve real-world problem statements.</li>
-            <li>Enhanced logical reasoning and algorithm design through practical coding exercises.</li>
+            <li>Engineered a CLI-based Task Management System in C++ featuring file-persistent storage, OOP-driven architecture (classes, inheritance, encapsulation), and linked list–backed task queues supporting insert, delete, and priority operations.</li>
+            <li>Solved 20+ algorithm problems covering Arrays, Stacks, and Linked Lists, focusing on time/space complexity optimization.</li>
+            <li>Structured modular, maintainable code with separation of concerns – applying real-world software engineering principles to academic projects.</li>
           </ul>
           <div class="tl-tech"><span class="tech-tag">C++</span><span class="tech-tag">OOP</span><span
-              class="tech-tag">File Handling</span><span class="tech-tag">Data Structures</span><span
-              class="tech-tag">Algorithm Design</span></div>
+              class="tech-tag">File I/O</span><span class="tech-tag">Data Structures</span><span
+              class="tech-tag">Algorithm Design</span><span class="tech-tag">Complexity Analysis</span></div>
         </a>
       </div>
-      <div class="rv-divider">◈ &nbsp; CURRENTLY ENROLLED @ LPU · B.TECH CSE · CGPA 7.4 &nbsp; ◈</div>
+      <div class="rv-divider">◈ &nbsp; CURRENTLY ENROLLED @ LPU · B.TECH CSE · CGPA 7.6 &nbsp; ◈</div>
       <div class="section-label" style="margin-top:1rem">// Academic Record</div>
       <div class="edu-grid">
         <div class="edu-card reveal">
@@ -2568,7 +2662,7 @@
           <div class="edu-degree">B.Tech — CSE</div>
           <div class="edu-school">Lovely Professional University</div>
           <div class="edu-loc">Phagwara, Punjab</div>
-          <div class="edu-score">7.4 <span>CGPA</span></div>
+          <div class="edu-score">7.6 <span>CGPA</span></div>
         </div>
         <div class="edu-card reveal">
           <div class="edu-year">APR 2021 — MAR 2022</div>
@@ -2588,7 +2682,7 @@
     </section>
 
     <section id="competitive">
-      <div class="section-label">// Reaction Rate Analysis</div>
+      <div class="section-label" data-text-toggle data-standard="// Reaction Rate Analysis" data-safe="// Analytical Problem Solving">// Reaction Rate Analysis</div>
       <h2 class="section-title">Competitive <span class="accent">Programming</span></h2>
       <div class="cp-grid">
         <div class="cp-card reveal">
@@ -2616,20 +2710,19 @@
     </section>
 
     <section id="contact">
-      <div class="section-label">// Initiate Contact Protocol</div>
-      <h2 class="section-title">Let's <span class="accent">Cook</span></h2>
+      <div class="section-label" data-text-toggle data-standard="// Initiate Contact Protocol" data-safe="// Get In Touch">// Initiate Contact Protocol</div>
+      <h2 class="section-title" data-text-toggle data-standard='Let&apos;s <span class="accent">Cook</span>' data-safe='Let&apos;s <span class="accent">Connect</span>'>Let's <span class="accent">Cook</span></h2>
       <div class="contact-grid">
         <div>
-          <p class="contact-note">Open to internships, freelance projects, and collaborations. If you're building something ambitious and need someone who treats every line of code like a
-            chemical formula — reach out below.</p>
+          <p class="contact-note" data-text-toggle data-standard="Open to internships, freelance projects, and collaborations. If you're building something ambitious and need someone who treats every line of code like a chemical formula — reach out below." data-safe="Open to internships, freelance projects, and collaborations. If you're building something ambitious and need someone who treats every line of code with high precision and details — reach out below.">Open to internships, freelance projects, and collaborations. If you're building something ambitious and need someone who treats every line of code like a chemical formula — reach out below.</p>
           
           <form class="contact-form reveal" action="https://api.web3forms.com/submit" method="POST">
             <input type="hidden" name="access_key" value="ec3bdcd3-b4b3-43fa-b2fd-0af94e2312bd">
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email" required>
             <textarea name="message" placeholder="Message Protocol" required></textarea>
-            <input type="hidden" name="redirect" value="https://dishantjhava.github.io/"> 
-            <button type="submit" class="btn btn-primary">Send Transmission</button>
+            <input type="hidden" name="redirect" value="https://dishantjhava.github.io/thankyou.html"> 
+            <button type="submit" class="btn btn-primary" data-text-toggle data-standard="Send Transmission" data-safe="Send Message">Send Transmission</button>
           </form>
         </div>
         <div class="contact-links">
@@ -2651,11 +2744,11 @@
 
     <section id="resume-dl">
       <div class="dl-inner">
-        <div class="section-label" style="justify-content:center;margin-bottom:.6rem">// Extract the Formula</div>
+        <div class="section-label" style="justify-content:center;margin-bottom:.6rem" data-text-toggle data-standard="// Extract the Formula" data-safe="// Resume Document">// Extract the Formula</div>
         <h2 class="dl-title">Download My <span class="accent">Resume</span></h2>
         <p class="dl-sub">// dishant_jhava_resume.pdf · updated 2026</p>
         <div class="dl-btn-wrap">
-          <a class="dl-card reveal" href="Resumefinal.pdf" download="Dishant_Jhava_Resume.pdf">
+          <a class="dl-card reveal" href="Resume.pdf" download="Dishant_Jhava_Resume.pdf">
             <span class="dl-icon">📄</span>
             <span class="dl-label"><span>Download Resume</span><strong>Dishant Jhava — PDF</strong></span>
           </a>
@@ -2665,8 +2758,8 @@
 
     <footer>
       <p>© 2026 Dishant Jhava — All rights synthesized</p>
-      <p class="say-name">SAY MY NAME.</p>
-      <p>Built with precision. No filler. Pure product.</p>
+      <p class="say-name" data-text-toggle data-standard="SAY MY NAME." data-safe="DISHANT JHAVA.">SAY MY NAME.</p>
+      <p data-text-toggle data-standard="Built with precision. No filler. Pure product." data-safe="Built with precision. Optimized performance. Production-grade.">Built with precision. No filler. Pure product.</p>
     </footer>
   </div>
 
@@ -2690,15 +2783,19 @@
         setTimeout(function () {
           if (ov && ov.parentNode) ov.parentNode.removeChild(ov);
         }, 800);
+        // Trigger event for dependent animations like typewriter
+        window.dispatchEvent(new Event('intro-dismissed'));
       }
 
-      setTimeout(dismiss, 15000);
+      // Shorter timeout on mobile
+      var isMobile = window.innerWidth < 1000;
+      setTimeout(dismiss, isMobile ? 5000 : 12000);
       document.getElementById('introSkip').addEventListener('click', dismiss);
-      // Absolute nuclear fallback - 18s no matter what
+      // Absolute nuclear fallback
       setTimeout(function () {
         var o = document.getElementById('intro-overlay');
         if (o) { o.style.display = 'none'; o.style.pointerEvents = 'none'; }
-      }, 16800);
+      }, isMobile ? 6500 : 14000);
 
       /* ---- Canvas particle system ---- */
       var canvas = document.getElementById('intro-canvas');
@@ -2912,7 +3009,11 @@ var twText = "Full Stack Developer · Data Engineer · Problem Solver";
 var twElement = document.getElementById('chemFormula');
 if (twElement) {
   twElement.innerHTML = '';
-  setTimeout(function() {
+  var twStarted = false;
+  
+  function startTypewriter() {
+    if (twStarted) return;
+    twStarted = true;
     var i = 0;
     var int = setInterval(function() {
       twElement.innerHTML = twText.substring(0, i) + '<span class="cursor-blink">|</span>';
@@ -2922,7 +3023,13 @@ if (twElement) {
         twElement.innerHTML = twText + '<span class="cursor-blink">|</span>';
       }
     }, 55);
-  }, 5000);
+  }
+  
+  // Listen for the custom intro-dismissed event to start immediately
+  window.addEventListener('intro-dismissed', startTypewriter);
+  
+  // Dynamic failsafe fallback to match mobile/desktop timeouts
+  setTimeout(startTypewriter, window.innerWidth < 1000 ? 5500 : 12500);
 }
 
 /* ===== STATS COUNTER ===== */
@@ -2953,6 +3060,70 @@ if (statsRow) {
     }
   }, { threshold: 0.5 });
   statsObserver.observe(statsRow);
+}
+
+/* ===== PROFESSIONAL / SAFE MODE TOGGLE ===== */
+(function () {
+  var toggleBtns = document.querySelectorAll('.mode-toggle-btn');
+  if (toggleBtns.length === 0) return;
+  
+  var activeMode = localStorage.getItem('portfolio-safe-mode') || 'cook'; // 'cook' or 'safe'
+  
+  function applyMode(mode) {
+    activeMode = mode;
+    localStorage.setItem('portfolio-safe-mode', mode);
+    
+    // Toggle body class
+    if (mode === 'safe') {
+      document.body.classList.add('safe-mode-active');
+      toggleBtns.forEach(function(btn) {
+        btn.querySelector('.mode-icon').innerText = '💻';
+        btn.querySelector('.mode-text').innerText = 'Dev Mode';
+      });
+    } else {
+      document.body.classList.remove('safe-mode-active');
+      toggleBtns.forEach(function(btn) {
+        btn.querySelector('.mode-icon').innerText = '🧪';
+        btn.querySelector('.mode-text').innerText = 'Cook Mode';
+      });
+    }
+    
+    // Swap text content on tagged elements
+    document.querySelectorAll('[data-text-toggle]').forEach(function (el) {
+      var stdText = el.getAttribute('data-standard');
+      var safeText = el.getAttribute('data-safe');
+      if (mode === 'safe') {
+        el.innerHTML = safeText;
+      } else {
+        el.innerHTML = stdText;
+      }
+    });
+  }
+
+  // Initial application
+  applyMode(activeMode);
+
+  // Toggle on click for all buttons
+  toggleBtns.forEach(function(btn) {
+    btn.addEventListener('click', function () {
+      var nextMode = activeMode === 'cook' ? 'safe' : 'cook';
+      applyMode(nextMode);
+    });
+  });
+})();
+
+/* ===== MOBILE NAVIGATION MENU ===== */
+var ham = document.getElementById('navHam');
+var mob = document.getElementById('navMobile');
+if (ham && mob) {
+  ham.addEventListener('click', function() {
+    mob.classList.toggle('open');
+  });
+  mob.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      mob.classList.remove('open');
+    });
+  });
 }
 </script>
 <style>
